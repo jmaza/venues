@@ -7,8 +7,12 @@
 //
 
 #import "DetailViewController.h"
+#import "UIImageView+AFNetworking.h"
 
 @interface DetailViewController ()
+@property (weak, nonatomic) IBOutlet UIImageView *placeImageView;
+@property (weak, nonatomic) IBOutlet UILabel *placeAddressOne;
+@property (weak, nonatomic) IBOutlet UILabel *placeAddressTwo;
 
 @end
 
@@ -28,7 +32,10 @@
 - (void)configureView {
     // Update the user interface for the detail item.
     if (self.detailItem) {
-        self.detailDescriptionLabel.text = [self.detailItem description];
+        self.detailDescriptionLabel.text = [self.detailItem objectForKey:@"name"];
+        self.placeAddressOne.text = [self.detailItem objectForKey:@"address"];
+        self.placeAddressTwo.text = [self.detailItem objectForKey:@"city"];
+        [self.placeImageView setImageWithURL:[NSURL URLWithString:[self.detailItem objectForKey:@"image_url"]]];
     }
 }
 
