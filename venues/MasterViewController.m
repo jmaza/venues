@@ -6,10 +6,11 @@
 //  Copyright (c) 2015 Jose Maza. All rights reserved.
 //
 
-//TODO: save state / array of "venues" / refactor.
+//TODO: save state / array of "venues" / hide labels onviewLoad / refactor.
 
 #import "MasterViewController.h"
 #import "DetailViewController.h"
+#import "VenueItem.h"
 #import "AFNetworking.h"
 
 @interface MasterViewController ()
@@ -92,11 +93,19 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
     NSDictionary *tempDictionary = [self.objects objectAtIndex:indexPath.row];
+    VenueItem *venueObject = [[VenueItem alloc] init];
+    [venueObject setName: [tempDictionary objectForKey:@"name"]];
+    [venueObject setZip: [tempDictionary objectForKey:@"zip"]];
+    [venueObject setAddress: [tempDictionary objectForKey:@"address"]];
+    [venueObject setCity: [tempDictionary objectForKey:@"city"]];
+    [venueObject setState: [tempDictionary objectForKey:@"state"]];
     
-    cell.textLabel.text = [tempDictionary objectForKey:@"name"];
+    //cell.textLabel.text = [tempDictionary objectForKey:@"name"];
+    cell.textLabel.text = venueObject.name;
     
     if([tempDictionary objectForKey:@"name"] != NULL){
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [tempDictionary objectForKey:@"address"]];
+        //cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [tempDictionary objectForKey:@"address"]];
+        cell.detailTextLabel.text = venueObject.fullAddress;
     } else {
         cell.detailTextLabel.text = [NSString stringWithFormat:@"No address"];
     }

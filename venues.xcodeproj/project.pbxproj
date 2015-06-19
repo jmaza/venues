@@ -15,6 +15,7 @@
 		0434F87E1B327CF2005EB601 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0434F87D1B327CF2005EB601 /* Images.xcassets */; };
 		0434F8811B327CF2005EB601 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0434F87F1B327CF2005EB601 /* LaunchScreen.xib */; };
 		0434F88D1B327CF2005EB601 /* venuesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0434F88C1B327CF2005EB601 /* venuesTests.m */; };
+		0434F89B1B32CA38005EB601 /* VenueItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0434F89A1B32CA38005EB601 /* VenueItem.m */; };
 		794E82B62C963BCA3539E342 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40EF06D74EA5BEF336386A87 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -44,6 +45,8 @@
 		0434F8861B327CF2005EB601 /* venuesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = venuesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0434F88B1B327CF2005EB601 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0434F88C1B327CF2005EB601 /* venuesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = venuesTests.m; sourceTree = "<group>"; };
+		0434F8991B32CA38005EB601 /* VenueItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VenueItem.h; sourceTree = "<group>"; };
+		0434F89A1B32CA38005EB601 /* VenueItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VenueItem.m; sourceTree = "<group>"; };
 		084A67C9E7C41432C2F353BD /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		377DE5741EFB738243240867 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		40EF06D74EA5BEF336386A87 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -91,6 +94,8 @@
 		0434F86C1B327CF1005EB601 /* venues */ = {
 			isa = PBXGroup;
 			children = (
+				0434F8991B32CA38005EB601 /* VenueItem.h */,
+				0434F89A1B32CA38005EB601 /* VenueItem.m */,
 				0434F8711B327CF2005EB601 /* AppDelegate.h */,
 				0434F8721B327CF2005EB601 /* AppDelegate.m */,
 				0434F8741B327CF2005EB601 /* MasterViewController.h */,
@@ -286,6 +291,7 @@
 				0434F8731B327CF2005EB601 /* AppDelegate.m in Sources */,
 				0434F8761B327CF2005EB601 /* MasterViewController.m in Sources */,
 				0434F8701B327CF2005EB601 /* main.m in Sources */,
+				0434F89B1B32CA38005EB601 /* VenueItem.m in Sources */,
 				0434F8791B327CF2005EB601 /* DetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
