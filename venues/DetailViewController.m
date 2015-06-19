@@ -7,6 +7,7 @@
 //
 
 #import "DetailViewController.h"
+#import "VenueItem.h"
 #import "UIImageView+AFNetworking.h"
 
 @interface DetailViewController ()
@@ -32,10 +33,10 @@
 - (void)configureView {
     // Update the user interface for the detail item.
     if (self.detailItem) {
-        self.detailDescriptionLabel.text = [self.detailItem objectForKey:@"name"];
-        self.placeAddressOne.text = [self.detailItem objectForKey:@"address"];
-        self.placeAddressTwo.text = [self.detailItem objectForKey:@"city"];
-        [self.placeImageView setImageWithURL:[NSURL URLWithString:[self.detailItem objectForKey:@"image_url"]]];
+        self.detailDescriptionLabel.text = [self.detailItem name];
+        self.placeAddressOne.text = [self.detailItem detailAddressOne];
+        self.placeAddressTwo.text = [self.detailItem detailAddressTwo];
+        [self.placeImageView setImageWithURL:[NSURL URLWithString:[self.detailItem image_url]]];
     }
 }
 

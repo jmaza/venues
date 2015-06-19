@@ -11,60 +11,32 @@
 
 @implementation VenueItem
 
+- (instancetype)initWithVenueArray:(NSDictionary *)arr{
+    self = [super init];
+    
+    if (self){
+        _name = [arr objectForKey:@"name"];
+        _zip = [arr objectForKey:@"zip"];
+        _city = [arr objectForKey:@"city"];
+        _address = [arr objectForKey:@"address"];
+        _state = [arr objectForKey:@"state"];
+        _image_url = [arr objectForKey:@"image_url"];
+
+    }
+    
+    return self;
+}
+
 - (NSString *)fullAddress{
     return [NSString stringWithFormat:@"%@, %@, %@ %@",_address, _city, _state, _zip ];
 }
-
--(void)setName:(NSString *)str{
-    _name = str;
+- (NSString *)detailAddressOne{
+    return [NSString stringWithFormat:@"%@",_address ];
+}
+- (NSString *)detailAddressTwo{
+    return [NSString stringWithFormat:@"%@, %@, %@",_city, _state, _zip ];
 }
 
--(NSString *)name{
-    return _name;
-}
-
--(void)setCity:(NSString *)str{
-    _city = str;
-}
-
--(NSString *)city{
-    return _city;
-}
--(void)setZip:(NSString *)str{
-    _zip = str;
-}
-
--(NSString *)zip{
-    return _zip;
-}
--(void)setAddress:(NSString *)str{
-    _address = str;
-}
-
--(NSString *)address{
-    return _address;
-}
--(void)setState:(NSString *)str{
-    _state = str;
-}
-
--(NSString *)state{
-    return _state;
-}
--(void)setImage_url:(NSString *)str{
-    _image_url = str;
-}
-
--(NSString *)image_url{
-    return _image_url;
-}
-
--(void)setSchedule:(NSArray *)arr{
-    _schedule = arr;
-}
-
--(NSArray *)schedule{
-    return _schedule;
-}
+//TODO: Handle Schedule
 
 @end

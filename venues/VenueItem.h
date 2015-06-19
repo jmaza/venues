@@ -9,40 +9,19 @@
 #import <Foundation/Foundation.h>
 
 @interface VenueItem : NSObject
-{
-    NSString *_name;
-    NSString *_city;
-    NSString *_zip;
-    NSString *_address;
-    NSString *_state;
-    NSString *_image_url;
-    NSArray *_schedule;
-}
 
-//-(instancetype)initWithVenueObj:
+@property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSString *city;
+@property (nonatomic, copy) NSString *zip;
+@property (nonatomic, copy) NSString *address;
+@property (nonatomic, copy) NSString *state;
+@property (nonatomic, copy) NSString *image_url;
+
+-(instancetype)initWithVenueArray:(NSDictionary *)arr;
 
 -(NSString *)fullAddress;
-
--(void)setName:(NSString *)str;
--(NSString *)name;
-
--(void)setCity:(NSString *)str;
--(NSString *)city;
-
--(void)setZip:(NSString *)str;
--(NSString *)zip;
-
--(void)setAddress:(NSString *)str;
--(NSString *)address;
-
--(void)setState:(NSString *)str;
--(NSString *)state;
-
--(void)setImage_url:(NSString *)str;
--(NSString *)image_url;
-
--(void)setSchedule:(NSArray *)arr;
--(NSArray *)schedule;
+-(NSString *)detailAddressOne;
+-(NSString *)detailAddressTwo;
 
 @end
 

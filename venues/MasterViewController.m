@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Jose Maza. All rights reserved.
 //
 
-//TODO: save state / array of "venues" / hide labels onviewLoad / refactor.
+//TODO:  hide labels onviewLoad / refactor.
 
 #import "MasterViewController.h"
 #import "DetailViewController.h"
@@ -16,6 +16,7 @@
 @interface MasterViewController ()
 
 @property NSMutableArray *objects;
+@property NSMutableArray *venueObjects;
 @end
 
 @implementation MasterViewController
@@ -50,12 +51,21 @@
         if (!self.objects) {
             self.objects = [[NSMutableArray alloc] init];
         }
+        if (!self.venueObjects) {
+            self.venueObjects = [[NSMutableArray alloc] init];
+        }
         self.objects = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&error];
+        for (int i = 0; i < self.objects.count; i++) {
+            VenueItem *currentVenue = [[VenueItem alloc] initWithVenueArray: [self.objects objectAtIndex:i]];
+            [self.venueObjects addObject:currentVenue];
+        }
+        
         if (error != nil) {
             NSLog(@"Error parsing JSON");
         } else{
             NSLog(@"Array %@", self.objects);
         }
+        
         [self.tableView reloadData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Request Failed: %@, %@", error, error.userInfo);
@@ -71,7 +81,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSMutableArray *object = [self.objects objectAtIndex:indexPath.row];
+        VenueItem *object = [self.venueObjects objectAtIndex:indexPath.row];
         DetailViewController *controller = (DetailViewController *)[[segue destinationViewController] topViewController];
         [controller setDetailItem:object];
         controller.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
@@ -92,26 +102,10 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
-    NSDictionary *tempDictionary = [self.objects objectAtIndex:indexPath.row];
-    VenueItem *venueObject = [[VenueItem alloc] init];
-    [venueObject setName: [tempDictionary objectForKey:@"name"]];
-    [venueObject setZip: [tempDictionary objectForKey:@"zip"]];
-    [venueObject setAddress: [tempDictionary objectForKey:@"address"]];
-    [venueObject setCity: [tempDictionary objectForKey:@"city"]];
-    [venueObject setState: [tempDictionary objectForKey:@"state"]];
     
-    //cell.textLabel.text = [tempDictionary objectForKey:@"name"];
-    cell.textLabel.text = venueObject.name;
+    cell.textLabel.text = [[self.venueObjects objectAtIndex:indexPath.row] name];
+    cell.detailTextLabel.text = [[self.venueObjects objectAtIndex:indexPath.row] fullAddress];
     
-    if([tempDictionary objectForKey:@"name"] != NULL){
-        //cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [tempDictionary objectForKey:@"address"]];
-        cell.detailTextLabel.text = venueObject.fullAddress;
-    } else {
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"No address"];
-    }
-
-    /*NSDate *object = self.objects[indexPath.row];
-    cell.textLabel.text = [object description];*/
     return cell;
 }
 
@@ -120,13 +114,5 @@
     return NO;
 }
 
-/*- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [self.objects removeObjectAtIndex:indexPath.row];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
-    }
-}*/
 
 @end
