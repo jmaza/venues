@@ -18,6 +18,7 @@
 @end
 
 @implementation DetailViewController
+@synthesize dateData;
 
 #pragma mark - Managing the detail item
 
@@ -26,7 +27,7 @@
         _detailItem = newDetailItem;
             
         // Update the view.
-        [self configureView];
+        //[self configureView];
     }
 }
 
@@ -36,7 +37,9 @@
         self.detailDescriptionLabel.text = [self.detailItem name];
         self.placeAddressOne.text = [self.detailItem detailAddressOne];
         self.placeAddressTwo.text = [self.detailItem detailAddressTwo];
-        [self.placeImageView setImageWithURL:[NSURL URLWithString:[self.detailItem image_url]]];
+        [self.placeImageView setImageWithURL:[NSURL URLWithString:[self.detailItem imageUrl]]];
+
+       // [self.detailItem showDate];
     }
 }
 
@@ -44,11 +47,32 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     [self configureView];
+    dateData = [[NSMutableArray alloc] initWithArray:[self.detailItem showDate]];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark - Table View
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    //return self.objects.count;
+    return [[self.detailItem schedule] count ];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DateCell" forIndexPath:indexPath];
+    
+    cell.textLabel.text = [dateData objectAtIndex:indexPath.row];
+    
+    return cell;
+}
+
 
 @end

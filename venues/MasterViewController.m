@@ -11,6 +11,8 @@
 #import "MasterViewController.h"
 #import "DetailViewController.h"
 #import "VenueItem.h"
+#import "JAMVenueStore.h"
+#import "JAMNetworkClient.h"
 #import "AFNetworking.h"
 
 @interface MasterViewController ()
@@ -31,7 +33,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self makeVenueRequests];
+    JAMNetworkClient *client = [JAMNetworkClient sharedHTTPClient];
+    [client setDelegate:self];
+    [client makeVenueRequests];
     self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
 }
 
@@ -40,54 +44,35 @@
 }
 
 
--(void)makeVenueRequests{
-    NSURL *url = [NSURL URLWithString:@"https://s3.amazonaws.com/jon-hancock-phunware/nflapi-static.json"];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    operation.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/plain"];
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject){
-        NSError *error;
-        if (!self.objects) {
-            self.objects = [[NSMutableArray alloc] init];
-        }
-        if (!self.venueObjects) {
-            self.venueObjects = [[NSMutableArray alloc] init];
-        }
-        self.objects = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&error];
-        for (int i = 0; i < self.objects.count; i++) {
-            VenueItem *currentVenue = [[VenueItem alloc] initWithVenueArray: [self.objects objectAtIndex:i]];
-            [self.venueObjects addObject:currentVenue];
-        }
-        
-        if (error != nil) {
-            NSLog(@"Error parsing JSON");
-        } else{
-            NSLog(@"Array %@", self.objects);
-        }
-        
-        [self.tableView reloadData];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Request Failed: %@, %@", error, error.userInfo);
-    }];
-    
-    [operation start];
-     
-}
-
-
 #pragma mark - Segues
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
+        NSArray *venues = [[JAMVenueStore sharedStore] allVenues];
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        VenueItem *object = [self.venueObjects objectAtIndex:indexPath.row];
-        DetailViewController *controller = (DetailViewController *)[[segue destinationViewController] topViewController];
-        [controller setDetailItem:object];
+        DetailViewController *controller;
+        if ([[segue destinationViewController] isKindOfClass:[UINavigationController class]]) {
+            controller = (DetailViewController *)[[segue destinationViewController] topViewController];
+        }
+        else {
+            controller = (DetailViewController *)[segue destinationViewController];
+        }
+        [controller setDetailItem:venues[indexPath.row]];
         controller.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
         controller.navigationItem.leftItemsSupplementBackButton = YES;
     }
 }
+
+#pragma mark JAMNetworkClient Delegate
+
+-(void)JAMNetworkClient:(JAMNetworkClient *)sharedHTTPClient didSucceedWithResponse:(id)responseObject{
+    [self.tableView reloadData];
+}
+
+-(void)JAMNetworkClient:(JAMNetworkClient *)sharedHTTPClient didFailWithError:(NSError *)error{
+    NSLog(@"error");
+}
+
 
 #pragma mark - Table View
 
@@ -96,15 +81,16 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.objects.count;
+    return [[[JAMVenueStore sharedStore] allVenues ] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
+    NSArray *venues = [[JAMVenueStore sharedStore] allVenues];
     
-    cell.textLabel.text = [[self.venueObjects objectAtIndex:indexPath.row] name];
-    cell.detailTextLabel.text = [[self.venueObjects objectAtIndex:indexPath.row] fullAddress];
+    cell.textLabel.text = [[venues objectAtIndex:indexPath.row] name];
+    cell.detailTextLabel.text = [[venues objectAtIndex:indexPath.row] fullAddress];
     
     return cell;
 }
@@ -113,6 +99,10 @@
     // Return NO if you do not want the specified item to be editable.
     return NO;
 }
+/*
+-(BOOL)splitViewController:(UISplitViewController *)svc shouldHideViewController:(UIViewController *)vc inOrientation:(UIInterfaceOrientation)orientation{
+    return NO;
+}*/
 
 
 @end

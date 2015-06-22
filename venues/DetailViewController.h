@@ -12,6 +12,7 @@
 
 @property (strong, nonatomic) id detailItem;
 @property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
-
+@property (strong, nonatomic) IBOutlet UITableView *dateTableView;
+@property (strong, nonatomic) NSMutableArray *dateData;
 @end
 

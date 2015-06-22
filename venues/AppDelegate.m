@@ -5,6 +5,7 @@
 //  Created by Jose Maza on 6/17/15.
 //  Copyright (c) 2015 Jose Maza. All rights reserved.
 //
+#define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
 
 #import "AppDelegate.h"
 #import "DetailViewController.h"
@@ -20,7 +21,9 @@
     // Override point for customization after application launch.
     UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
     UINavigationController *navigationController = [splitViewController.viewControllers lastObject];
-    navigationController.topViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem;
+    if ([splitViewController respondsToSelector:@selector(displayModeButtonItem)]){
+        navigationController.topViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem;
+    }
     splitViewController.delegate = self;
     return YES;
 }
@@ -52,9 +55,44 @@
 - (BOOL)splitViewController:(UISplitViewController *)splitViewController collapseSecondaryViewController:(UIViewController *)secondaryViewController ontoPrimaryViewController:(UIViewController *)primaryViewController {
     if ([secondaryViewController isKindOfClass:[UINavigationController class]] && [[(UINavigationController *)secondaryViewController topViewController] isKindOfClass:[DetailViewController class]] && ([(DetailViewController *)[(UINavigationController *)secondaryViewController topViewController] detailItem] == nil)) {
         // Return YES to indicate that we have handled the collapse by doing nothing; the secondary controller will be discarded.
+
         return YES;
     } else {
         return NO;
+    }
+}
+
+-(void)splitViewController:(UISplitViewController *)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)pc{
+    barButtonItem.title = @"< Master";
+    UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
+    //if ([splitViewController respondsToSelector:@selector(displayModeButtonItem)]){
+        UINavigationController *navigationController = [splitViewController.viewControllers lastObject];
+        navigationController.topViewController.navigationItem.leftBarButtonItem = barButtonItem;
+    //}
+    
+}
+
+-(void)splitViewController:(UISplitViewController *)svc willShowViewController:(UIViewController *)aViewController invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem{
+    UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
+    UINavigationController *navigationController = [splitViewController.viewControllers lastObject];
+    //if (barButtonItem == navigationController.topViewController.navigationItem.leftBarButtonItem){
+        navigationController.topViewController.navigationItem.leftBarButtonItem = nil;
+    //}
+}
+
+
+
+
+///
+/// Used by iOS 7 iPad
+///
+
+- (BOOL)splitViewController:(UISplitViewController *)svc shouldHideViewController:(UIViewController *)vc inOrientation:(UIInterfaceOrientation)orientation
+{
+    if (SYSTEM_VERSION_LESS_THAN(@"8.0")) {
+        return NO;
+    } else{
+        return YES;
     }
 }
 
