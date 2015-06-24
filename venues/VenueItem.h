@@ -15,13 +15,15 @@
 @property (nonatomic, copy) NSString *zip;
 @property (nonatomic, copy) NSString *address;
 @property (nonatomic, copy) NSString *state;
-@property (nonatomic, copy) NSString *image_url;
+@property (nonatomic, copy) NSString *imageUrl;
+@property (nonatomic, copy) NSArray *schedule;
 
 -(instancetype)initWithVenueArray:(NSDictionary *)arr;
 
 -(NSString *)fullAddress;
 -(NSString *)detailAddressOne;
 -(NSString *)detailAddressTwo;
+-(NSArray *)showDate;
 
 @end
 
