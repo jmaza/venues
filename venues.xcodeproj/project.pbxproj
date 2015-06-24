@@ -16,7 +16,10 @@
 		0434F8811B327CF2005EB601 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0434F87F1B327CF2005EB601 /* LaunchScreen.xib */; };
 		0434F88D1B327CF2005EB601 /* venuesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0434F88C1B327CF2005EB601 /* venuesTests.m */; };
 		0434F89B1B32CA38005EB601 /* VenueItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0434F89A1B32CA38005EB601 /* VenueItem.m */; };
+		04EF4B441B373E7E00D77DFB /* JAMNetworkClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EF4B431B373E7E00D77DFB /* JAMNetworkClient.m */; };
+		04EF4B471B37B61500D77DFB /* JAMVenueStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EF4B461B37B61500D77DFB /* JAMVenueStore.m */; };
 		794E82B62C963BCA3539E342 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40EF06D74EA5BEF336386A87 /* libPods.a */; };
+		8205EDAD1B3A900A00F7DD61 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8205EDAC1B3A900A00F7DD61 /* Social.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,9 +50,14 @@
 		0434F88C1B327CF2005EB601 /* venuesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = venuesTests.m; sourceTree = "<group>"; };
 		0434F8991B32CA38005EB601 /* VenueItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VenueItem.h; sourceTree = "<group>"; };
 		0434F89A1B32CA38005EB601 /* VenueItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VenueItem.m; sourceTree = "<group>"; };
+		04EF4B421B373E7E00D77DFB /* JAMNetworkClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAMNetworkClient.h; sourceTree = "<group>"; };
+		04EF4B431B373E7E00D77DFB /* JAMNetworkClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAMNetworkClient.m; sourceTree = "<group>"; };
+		04EF4B451B37B61500D77DFB /* JAMVenueStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAMVenueStore.h; sourceTree = "<group>"; };
+		04EF4B461B37B61500D77DFB /* JAMVenueStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAMVenueStore.m; sourceTree = "<group>"; };
 		084A67C9E7C41432C2F353BD /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		377DE5741EFB738243240867 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		40EF06D74EA5BEF336386A87 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		8205EDAC1B3A900A00F7DD61 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8205EDAD1B3A900A00F7DD61 /* Social.framework in Frameworks */,
 				794E82B62C963BCA3539E342 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -71,10 +80,50 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0426C5801B38292900D3A9DD /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				0434F8741B327CF2005EB601 /* MasterViewController.h */,
+				0434F8751B327CF2005EB601 /* MasterViewController.m */,
+				0434F8771B327CF2005EB601 /* DetailViewController.h */,
+				0434F8781B327CF2005EB601 /* DetailViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		0426C5811B38296C00D3A9DD /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				0434F8991B32CA38005EB601 /* VenueItem.h */,
+				0434F89A1B32CA38005EB601 /* VenueItem.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		0426C5821B38297700D3A9DD /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0434F87A1B327CF2005EB601 /* Main.storyboard */,
+				0434F87F1B327CF2005EB601 /* LaunchScreen.xib */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		0426C5831B38298000D3A9DD /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				04EF4B431B373E7E00D77DFB /* JAMNetworkClient.m */,
+				04EF4B421B373E7E00D77DFB /* JAMNetworkClient.h */,
+				04EF4B451B37B61500D77DFB /* JAMVenueStore.h */,
+				04EF4B461B37B61500D77DFB /* JAMVenueStore.m */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
 		0434F8611B327CF1005EB601 = {
 			isa = PBXGroup;
 			children = (
-				0434F86C1B327CF1005EB601 /* venues */,
+				0434F86C1B327CF1005EB601 /* Venues */,
 				0434F8891B327CF2005EB601 /* venuesTests */,
 				0434F86B1B327CF1005EB601 /* Products */,
 				984986D66768DB6F1B3FECAE /* Pods */,
@@ -91,22 +140,19 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		0434F86C1B327CF1005EB601 /* venues */ = {
+		0434F86C1B327CF1005EB601 /* Venues */ = {
 			isa = PBXGroup;
 			children = (
-				0434F8991B32CA38005EB601 /* VenueItem.h */,
-				0434F89A1B32CA38005EB601 /* VenueItem.m */,
+				0426C5831B38298000D3A9DD /* Utils */,
+				0426C5821B38297700D3A9DD /* Views */,
+				0426C5811B38296C00D3A9DD /* Models */,
+				0426C5801B38292900D3A9DD /* Controllers */,
 				0434F8711B327CF2005EB601 /* AppDelegate.h */,
 				0434F8721B327CF2005EB601 /* AppDelegate.m */,
-				0434F8741B327CF2005EB601 /* MasterViewController.h */,
-				0434F8751B327CF2005EB601 /* MasterViewController.m */,
-				0434F8771B327CF2005EB601 /* DetailViewController.h */,
-				0434F8781B327CF2005EB601 /* DetailViewController.m */,
-				0434F87A1B327CF2005EB601 /* Main.storyboard */,
 				0434F87D1B327CF2005EB601 /* Images.xcassets */,
-				0434F87F1B327CF2005EB601 /* LaunchScreen.xib */,
 				0434F86D1B327CF2005EB601 /* Supporting Files */,
 			);
+			name = Venues;
 			path = venues;
 			sourceTree = "<group>";
 		};
@@ -148,6 +194,7 @@
 		C003BF46D1276C373BB6E41D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8205EDAC1B3A900A00F7DD61 /* Social.framework */,
 				40EF06D74EA5BEF336386A87 /* libPods.a */,
 			);
 			name = Frameworks;
@@ -288,8 +335,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04EF4B471B37B61500D77DFB /* JAMVenueStore.m in Sources */,
 				0434F8731B327CF2005EB601 /* AppDelegate.m in Sources */,
 				0434F8761B327CF2005EB601 /* MasterViewController.m in Sources */,
+				04EF4B441B373E7E00D77DFB /* JAMNetworkClient.m in Sources */,
 				0434F8701B327CF2005EB601 /* main.m in Sources */,
 				0434F89B1B32CA38005EB601 /* VenueItem.m in Sources */,
 				0434F8791B327CF2005EB601 /* DetailViewController.m in Sources */,
@@ -421,7 +470,9 @@
 			baseConfigurationReference = 377DE5741EFB738243240867 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = venues/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -432,7 +483,9 @@
 			baseConfigurationReference = 084A67C9E7C41432C2F353BD /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = venues/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
