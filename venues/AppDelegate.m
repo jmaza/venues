@@ -9,6 +9,9 @@
 
 #import "AppDelegate.h"
 #import "DetailViewController.h"
+#import <AFNetworkReachabilityManager.h>
+#import "JAMNetworkClient.h"
+
 
 @interface AppDelegate () <UISplitViewControllerDelegate>
 
@@ -19,11 +22,17 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(notesAPIReachabilityChangedNotification:)
+                                                 name:AFNetworkingReachabilityDidChangeNotification
+                                               object:nil];
+    
     UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
-    UINavigationController *navigationController = [splitViewController.viewControllers lastObject];
-    if ([splitViewController respondsToSelector:@selector(displayModeButtonItem)]){
+    //UINavigationController *navigationController = [splitViewController.viewControllers lastObject];
+    /*if ([splitViewController respondsToSelector:@selector(displayModeButtonItem)]){
         navigationController.topViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem;
-    }
+    }*/
     splitViewController.delegate = self;
     return YES;
 }
@@ -50,6 +59,21 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+#pragma mark - Notification observers
+- (void)notesAPIReachabilityChangedNotification:(NSNotification *)notification
+{
+    NSLog(@"Rechability status: %ld", [JAMNetworkClient sharedHTTPClient].reachabilityManager.networkReachabilityStatus);
+    NSLog(@"Rechability status string: %@", [[JAMNetworkClient sharedHTTPClient].reachabilityManager localizedNetworkReachabilityStatusString]);
+    
+    if ([JAMNetworkClient sharedHTTPClient].reachabilityManager.isReachableViaWiFi) {
+        NSLog(@"La API está disponible vía WiFi");
+    } else if ([JAMNetworkClient sharedHTTPClient].reachabilityManager.isReachableViaWWAN) {
+        NSLog(@"La API está disponible vía WWAN (3G, LTE, GPRS…)");
+    }
+}
+
+
+
 #pragma mark - Split view
 
 - (BOOL)splitViewController:(UISplitViewController *)splitViewController collapseSecondaryViewController:(UIViewController *)secondaryViewController ontoPrimaryViewController:(UIViewController *)primaryViewController {
@@ -64,19 +88,27 @@
 
 -(void)splitViewController:(UISplitViewController *)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)pc{
     barButtonItem.title = @"< Master";
-    UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
+    //self.popover = pc;
+   // UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
     //if ([splitViewController respondsToSelector:@selector(displayModeButtonItem)]){
-        UINavigationController *navigationController = [splitViewController.viewControllers lastObject];
-        navigationController.topViewController.navigationItem.leftBarButtonItem = barButtonItem;
+        UINavigationController *navigationController = [svc.viewControllers lastObject];
+        //DetailViewController
+    
+    
+        //navigationController.topViewController.navigationItem.leftBarButtonItem = barButtonItem;
+    [navigationController.topViewController.navigationItem setLeftBarButtonItem:(barButtonItem) animated:YES];
     //}
+    
+   // UINavigationController *navigationController = [splitViewController.viewControllers];
     
 }
 
 -(void)splitViewController:(UISplitViewController *)svc willShowViewController:(UIViewController *)aViewController invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem{
-    UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
-    UINavigationController *navigationController = [splitViewController.viewControllers lastObject];
+    //UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
+    UINavigationController *navigationController = [svc.viewControllers lastObject];
     //if (barButtonItem == navigationController.topViewController.navigationItem.leftBarButtonItem){
-        navigationController.topViewController.navigationItem.leftBarButtonItem = nil;
+        //navigationController.topViewController.navigationItem.leftBarButtonItem = nil;
+    [navigationController.topViewController.navigationItem setLeftBarButtonItem:(nil) animated:YES];
     //}
 }
 
@@ -89,11 +121,13 @@
 
 - (BOOL)splitViewController:(UISplitViewController *)svc shouldHideViewController:(UIViewController *)vc inOrientation:(UIInterfaceOrientation)orientation
 {
+  
     if (SYSTEM_VERSION_LESS_THAN(@"8.0")) {
         return NO;
     } else{
         return YES;
     }
+    //return _needsHideMasterView;
 }
 
 @end

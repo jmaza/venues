@@ -8,9 +8,9 @@
 
 #import "JAMNetworkClient.h"
 #import "AFNetworking.h"
+#import <AFNetworkActivityIndicatorManager.h>
 #import "MasterViewController.h"
-#import "JAMVenueStore.h"
-//#import "Venue
+
 
 static NSString *const baseURL = @"https://s3.amazonaws.com/jon-hancock-phunware/nflapi-static.json";
 
@@ -21,6 +21,7 @@ static NSString *const baseURL = @"https://s3.amazonaws.com/jon-hancock-phunware
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
+        [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
         _sharedHTTPClient = [[self alloc] initWithBaseURL:[NSURL URLWithString:baseURL]];
     });
     
@@ -30,6 +31,8 @@ static NSString *const baseURL = @"https://s3.amazonaws.com/jon-hancock-phunware
 - (instancetype)initWithBaseURL:(NSURL *)url
 {
     self = [super initWithBaseURL:url];
+    [self.reachabilityManager startMonitoring];
+    
     
     return self;
 }
@@ -42,8 +45,6 @@ static NSString *const baseURL = @"https://s3.amazonaws.com/jon-hancock-phunware
     operation.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/plain"];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject){
         NSError *error;
-        
-        [[JAMVenueStore sharedStore] createVenue:[NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&error]];
         if (error != nil) {
             NSLog(@"Error parsing JSON");
         }
@@ -59,6 +60,12 @@ static NSString *const baseURL = @"https://s3.amazonaws.com/jon-hancock-phunware
             NSLog(@"Fail");
         }
         NSLog(@"Request Failed: %@, %@", error, error.userInfo);
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error Retrieving Venues"
+                                                            message:[error localizedDescription]
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"Ok"
+                                                  otherButtonTitles:nil];
+        [alertView show];
     }];
     
     [operation start];

@@ -20,6 +20,8 @@
 		04EF4B471B37B61500D77DFB /* JAMVenueStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EF4B461B37B61500D77DFB /* JAMVenueStore.m */; };
 		794E82B62C963BCA3539E342 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40EF06D74EA5BEF336386A87 /* libPods.a */; };
 		8205EDAD1B3A900A00F7DD61 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8205EDAC1B3A900A00F7DD61 /* Social.framework */; };
+		820A85801B40C0C400DADA8A /* JAMVenuesFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 820A857F1B40C0C400DADA8A /* JAMVenuesFeed.m */; };
+		827029911B3B31FA00C18423 /* JAMVenue.m in Sources */ = {isa = PBXBuildFile; fileRef = 827029901B3B31FA00C18423 /* JAMVenue.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +60,10 @@
 		377DE5741EFB738243240867 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		40EF06D74EA5BEF336386A87 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8205EDAC1B3A900A00F7DD61 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		820A857E1B40C0C400DADA8A /* JAMVenuesFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAMVenuesFeed.h; sourceTree = "<group>"; };
+		820A857F1B40C0C400DADA8A /* JAMVenuesFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAMVenuesFeed.m; sourceTree = "<group>"; };
+		8270298F1B3B31FA00C18423 /* JAMVenue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAMVenue.h; sourceTree = "<group>"; };
+		827029901B3B31FA00C18423 /* JAMVenue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAMVenue.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +102,10 @@
 			children = (
 				0434F8991B32CA38005EB601 /* VenueItem.h */,
 				0434F89A1B32CA38005EB601 /* VenueItem.m */,
+				8270298F1B3B31FA00C18423 /* JAMVenue.h */,
+				827029901B3B31FA00C18423 /* JAMVenue.m */,
+				820A857E1B40C0C400DADA8A /* JAMVenuesFeed.h */,
+				820A857F1B40C0C400DADA8A /* JAMVenuesFeed.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -335,12 +345,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				827029911B3B31FA00C18423 /* JAMVenue.m in Sources */,
 				04EF4B471B37B61500D77DFB /* JAMVenueStore.m in Sources */,
 				0434F8731B327CF2005EB601 /* AppDelegate.m in Sources */,
 				0434F8761B327CF2005EB601 /* MasterViewController.m in Sources */,
 				04EF4B441B373E7E00D77DFB /* JAMNetworkClient.m in Sources */,
 				0434F8701B327CF2005EB601 /* main.m in Sources */,
 				0434F89B1B32CA38005EB601 /* VenueItem.m in Sources */,
+				820A85801B40C0C400DADA8A /* JAMVenuesFeed.m in Sources */,
 				0434F8791B327CF2005EB601 /* DetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

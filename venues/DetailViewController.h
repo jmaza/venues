@@ -14,6 +14,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
 @property (strong, nonatomic) IBOutlet UITableView *dateTableView;
 - (IBAction)shareToSN:(id)sender;
-@property (strong, nonatomic) NSMutableArray *dateData;
+@property (strong, nonatomic) NSArray *dateData;
 @end
 

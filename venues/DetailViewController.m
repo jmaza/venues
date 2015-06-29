@@ -7,7 +7,9 @@
 //
 
 #import "DetailViewController.h"
-#import "VenueItem.h"
+#import "JAMVenue.h"
+#import "JSONModelLib.h"
+#import "JSONValueTransformer.h"
 #import "UIImageView+AFNetworking.h"
 #import <Social/Social.h>
 #import <SDWebImage/UIImageView+WebCache.h>
@@ -34,14 +36,22 @@
 }
 
 - (void)configureView {
+    
     // Update the user interface for the detail item.
     if (self.detailItem) {
+        JAMVenue *stateutil = [[JAMVenue alloc] init];
+        stateutil = self.detailItem ;
         self.detailDescriptionLabel.text = [self.detailItem name];
-        self.placeAddressOne.text = [self.detailItem detailAddressOne];
-        self.placeAddressTwo.text = [self.detailItem detailAddressTwo];
+        self.placeAddressOne.text = [NSString stringWithFormat:@"%@",[self.detailItem address] ]; //, venue.city, venue.state, venue.zip
+        self.placeAddressTwo.text = [NSString stringWithFormat:@"%@, %@, %@",[self.detailItem city], [stateutil state] , [self.detailItem zip] ];
         [self.placeImageView sd_setImageWithURL:[NSURL URLWithString: [self.detailItem imageUrl] ]
                                                     placeholderImage:[UIImage imageNamed:@"venuePlaceHolder.jpg"]];
        // [self.detailItem showDate];
+        NSLog(@"%@", [self.detailItem schedule]);
+        JSONValueTransformer *trans = [[JSONValueTransformer alloc] init];
+        
+        NSLog(@"%@",[trans JSONObjectFromSchedule:[self.detailItem schedule]]);
+        
     }
 }
 
@@ -49,8 +59,25 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     [self configureView];
-    dateData = [[NSMutableArray alloc] initWithArray:[self.detailItem showDate]];
+    JSONValueTransformer *trans = [[JSONValueTransformer alloc] init];
+    dateData = [trans JSONObjectFromSchedule:[self.detailItem schedule]];
 }
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:YES];
+    if ([[UIDevice currentDevice] orientation] == UIDeviceOrientationLandscapeLeft || [[UIDevice currentDevice] orientation ]== UIDeviceOrientationLandscapeRight)
+    {
+        NSLog(@"Landscape");
+        self.splitViewController.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
+    }else{
+        if (self.splitViewController.displayMode == UISplitViewControllerDisplayModeAllVisible || self.splitViewController.displayMode == UISplitViewControllerDisplayModePrimaryOverlay) {
+            [UIView animateWithDuration:0.3 animations:^{
+                self.splitViewController.preferredDisplayMode = UISplitViewControllerDisplayModePrimaryHidden;
+            }];
+        }
+    }
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
