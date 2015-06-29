@@ -9,6 +9,7 @@
 #import "DetailViewController.h"
 #import "JAMVenue.h"
 #import "JSONModelLib.h"
+#import "JAMDateFormatter.h"
 #import "JSONValueTransformer.h"
 #import "UIImageView+AFNetworking.h"
 #import <Social/Social.h>
@@ -48,8 +49,8 @@
                                                     placeholderImage:[UIImage imageNamed:@"venuePlaceHolder.jpg"]];
        // [self.detailItem showDate];
         NSLog(@"%@", [self.detailItem schedule]);
-        JSONValueTransformer *trans = [[JSONValueTransformer alloc] init];
-        
+        //JSONValueTransformer *trans = [[JSONValueTransformer alloc] init];
+        JAMDateFormatter *trans = [[JAMDateFormatter alloc] init];
         NSLog(@"%@",[trans JSONObjectFromSchedule:[self.detailItem schedule]]);
         
     }
@@ -59,7 +60,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     [self configureView];
-    JSONValueTransformer *trans = [[JSONValueTransformer alloc] init];
+    JAMDateFormatter *trans = [[JAMDateFormatter alloc] init];
     dateData = [trans JSONObjectFromSchedule:[self.detailItem schedule]];
 }
 

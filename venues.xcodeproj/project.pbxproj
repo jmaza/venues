@@ -21,6 +21,7 @@
 		794E82B62C963BCA3539E342 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40EF06D74EA5BEF336386A87 /* libPods.a */; };
 		8205EDAD1B3A900A00F7DD61 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8205EDAC1B3A900A00F7DD61 /* Social.framework */; };
 		820A85801B40C0C400DADA8A /* JAMVenuesFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 820A857F1B40C0C400DADA8A /* JAMVenuesFeed.m */; };
+		820A85891B411A7D00DADA8A /* JAMDateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 820A85881B411A7D00DADA8A /* JAMDateFormatter.m */; };
 		827029911B3B31FA00C18423 /* JAMVenue.m in Sources */ = {isa = PBXBuildFile; fileRef = 827029901B3B31FA00C18423 /* JAMVenue.m */; };
 /* End PBXBuildFile section */
 
@@ -62,6 +63,8 @@
 		8205EDAC1B3A900A00F7DD61 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		820A857E1B40C0C400DADA8A /* JAMVenuesFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAMVenuesFeed.h; sourceTree = "<group>"; };
 		820A857F1B40C0C400DADA8A /* JAMVenuesFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAMVenuesFeed.m; sourceTree = "<group>"; };
+		820A85871B411A7D00DADA8A /* JAMDateFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAMDateFormatter.h; sourceTree = "<group>"; };
+		820A85881B411A7D00DADA8A /* JAMDateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAMDateFormatter.m; sourceTree = "<group>"; };
 		8270298F1B3B31FA00C18423 /* JAMVenue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAMVenue.h; sourceTree = "<group>"; };
 		827029901B3B31FA00C18423 /* JAMVenue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAMVenue.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -126,6 +129,8 @@
 				04EF4B421B373E7E00D77DFB /* JAMNetworkClient.h */,
 				04EF4B451B37B61500D77DFB /* JAMVenueStore.h */,
 				04EF4B461B37B61500D77DFB /* JAMVenueStore.m */,
+				820A85871B411A7D00DADA8A /* JAMDateFormatter.h */,
+				820A85881B411A7D00DADA8A /* JAMDateFormatter.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -352,6 +357,7 @@
 				04EF4B441B373E7E00D77DFB /* JAMNetworkClient.m in Sources */,
 				0434F8701B327CF2005EB601 /* main.m in Sources */,
 				0434F89B1B32CA38005EB601 /* VenueItem.m in Sources */,
+				820A85891B411A7D00DADA8A /* JAMDateFormatter.m in Sources */,
 				820A85801B40C0C400DADA8A /* JAMVenuesFeed.m in Sources */,
 				0434F8791B327CF2005EB601 /* DetailViewController.m in Sources */,
 			);
